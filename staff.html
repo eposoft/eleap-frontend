@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Database</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background: linear-gradient(to right, #0932ab, #3f87a6);">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" id="TitleLeft" href="#">Staff Database</a>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <!-- <li class="nav-item">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
+                </li> -->
+                <li class="nav-item" style="padding: 5px;">
+                    <button type="button" class="btn btn-danger" id="logoutBtn">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="input-group mb-3">
+            <input type="text" id="searchQuery" class="form-control" placeholder="Search Personnel by 'Nama', 'No. Staf', or 'Kad Pengenalan'">
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
+
+
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <button class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#addStaffModal">Add New Staff</button>
+            </div>
+        </div>
+
+        <div id="staffContainer" class="container mt-3">
+            <!-- Staff Table (Desktop View) -->
+
+            <div id="staffTableView" class="table-responsive table-scrollable table-fixed-columns d-none d-md-block">
+                <table class="table table-bordered table-striped border-primary table-sm table-condensed">
+                    <thead  style="text-align: center; vertical-align: middle;">
+                        <tr>
+                            <th class="fixed-column">Bil.</th> 
+                            <th class="fixed-column">No. Staf</th>
+                            <th >Gelaran</th>
+                            <th >Nama</th>
+                            <th >No. Kad Pengenalan</th>
+                            <th >Tahun Lahir</th>
+                            <th >Tahun Semasa</th>
+                            <th >Umur</th>
+                            <th >Jantina</th>
+                            <th >Jawatan</th>
+                            <th >Gred</th>
+                            <th >Penyandang</th>
+                            <th >Kump Jawatan</th>
+                            <th >Status Jawatan</th>
+                            <th >Unit</th>
+                            <th >Jabatan</th>
+                            <th >PTJ</th>
+                            <th >Emel</th>
+                            <th >Tarikh Khidmat UM</th>
+                            <th >Tarikh Khidmat JPA</th>
+                            <th >Tarikh Sah Jawatan</th>
+                            <th >Tarikh Naik Pangkat</th>
+                            <th >Tarikh Lantik Semasa</th>
+                            <th >Tarikh Akhir Khidmat</th>
+                            <th >Tarikh Bersara</th>
+                            <th >Umur Bersara</th>
+                            <th >Baki Tempoh Perkhidmatan</th>
+                            <th >Kelayakan Akademik</th>
+                            <th >LTA (eLEAP)</th>
+                            <th >Capacity Band</th>
+                            <th >Work</th>
+                            <th >Ideation</th>
+                            <th >Thinking</th>
+                            <th >Motivation</th>
+                            <th >Learning</th>
+                            <th >Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffTableBody" class="text-center" style="text-align: center; vertical-align: middle;"></tbody>
+                </table>
+
+            </div>
+
+           
+
+            <!-- Staff Card View (Mobile View) -->
+            <div id="staffCardView" class="d-md-none">
+                <div class="accordion" id="staffAccordion"></div>
+                
+            </div>`
+
+
+            <div class="row">  
+                <div class="col d-flex justify-content-end">
+                    <div id="pagination" class="mt-3 d-flex flex-wrap"></div>
+                </div>          
+                    
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Add Staff Modal -->
+        <div class="modal fade" id="addStaffModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Staff</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form Fields for Adding Staff -->
+                        <input type="text" id="newNoStaff" class="form-control mb-2" placeholder="No. Staf (Required)" required>
+                        <input type="text" id="newGelaran" class="form-control mb-2" placeholder="Gelaran">
+                        <input type="text" id="newNama" class="form-control mb-2" placeholder="Nama (Required)" required>
+                        <input type="text" id="newKadPengenalan" class="form-control mb-2" placeholder="Kad Pengenalan (Required)" required>
+                        <input type="text" id="newtahunLahir" class="form-control mb-2" placeholder="Tahun Lahir">
+                        <input type="text" id="newtahunSemasa" class="form-control mb-2" placeholder="Tahun Semasa">
+                        <input type="text" id="newUmur" class="form-control mb-2" placeholder="Umur">
+                        <input type="text" id="newJantina" class="form-control mb-2" placeholder="Jantina">
+                        <input type="text" id="newJawatan" class="form-control mb-2" placeholder="Jawatan">
+                        <input type="text" id="newGred" class="form-control mb-2" placeholder="Gred">
+                        <input type="text" id="newPenyandang" class="form-control mb-2" placeholder="Penyandang">
+                        <input type="text" id="newkumpJawatan" class="form-control mb-2" placeholder="Kumpulan Jawatan">
+                        <input type="text" id="newstatusJawatan" class="form-control mb-2" placeholder="Status Jawatan">
+                        <input type="text" id="newUnit" class="form-control mb-2" placeholder="Unit">
+                        <input type="text" id="newJabatan" class="form-control mb-2" placeholder="Jabatan">
+                        <input type="text" id="newPtj" class="form-control mb-2" placeholder="PTJ">
+                        <input type="text" id="newEmel" class="form-control mb-2" placeholder="Emel">
+                        <input type="text" id="newtarikhKhidmatUM" class="form-control mb-2" placeholder="Tarikh Khidmat UM">                       
+                        <input type="text" id="newtarikhKhidmatJPA" class="form-control mb-2" placeholder="Tarikh Khidmat JPA">
+                        <input type="text" id="newtarikhSahJawatan" class="form-control mb-2" placeholder="Tarikh Sah Jawatan">
+                        <input type="text" id="newtarikhNaikPangkat" class="form-control mb-2" placeholder="Tarikh Naik Pangkat">
+                        <input type="text" id="newtarikhLantikSemasa" class="form-control mb-2" placeholder="Tarikh Lantik Semasa">
+                        <input type="text" id="newtarikhAkhirKhidmat" class="form-control mb-2" placeholder="Tarikh Akhir Khidmat">
+                        <input type="text" id="newtarikhBersara" class="form-control mb-2" placeholder="Tarikh Bersara">
+                        <input type="text" id="newUmurBersara" class="form-control mb-2" placeholder="Umur Bersara">
+                        <input type="text" id="newbakiTempohPerkhidmatan" class="form-control mb-2" placeholder="Baki Tempoh Perkhidmatan">
+                        <textarea id="newkelayakanAkademik" class="form-control mb-2"  placeholder="Kelayakan Akademik"></textarea>
+                        <!-- <input type="text" id="newkelayakanAkademik" class="form-control mb-2" placeholder="Kelayakan Akademik"> -->
+                        <input type="text" id="newlta" class="form-control mb-2" placeholder="LTA">
+                        <input type="text" id="newcapacityBand" class="form-control mb-2" placeholder="Capacity Band">
+                        <input type="text" id="newwork" class="form-control mb-2" placeholder="Work">
+                        <input type="text" id="newideation" class="form-control mb-2" placeholder="Ideation">
+                        <input type="text" id="newthinking" class="form-control mb-2" placeholder="Thinking">
+                        <input type="text" id="newmotivation" class="form-control mb-2" placeholder="Motivation">
+                        <input type="text" id="newlearning" class="form-control mb-2" placeholder="Learning"> 
+                        <button type="button" class="btn btn-success" id="addStaffBtn">Add Staff</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Staff Modal -->
+        <div class="modal fade" id="editStaffModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Staff</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form Fields for Editing Staff -->
+                      <!-- <input type="text" id="editNama" class="form-control mb-2" placeholder="Nama">
+                        <input type="text" id="editJawatan" class="form-control mb-2" placeholder="Jawatan">
+                        <input type="text" id="editJabatan" class="form-control mb-2" placeholder="Jabatan"> -->
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editNoStaff" placeholder="No. Staf (Required)" required>
+                            <label for="editNoStaff">No. Staf (Required)</label>
+                          </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editGelaran" placeholder="Gelaran">
+                            <label for="editGelaran">Gelaran</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editNama" placeholder="Nama (Required)" required>
+                            <label for="editNama">Nama (Required)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editKadPengenalan" placeholder="Kad Pengenalan (Required)" required>
+                            <label for="editKadPengenalan">Kad Pengenalan (Required)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittahunLahir" placeholder="Tahun Lahir">
+                            <label for="edittahunLahir">Tahun Lahir</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittahunSemasa" placeholder="Tahun Semasa">
+                            <label for="edittahunSemasa">Tahun Semasa</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editUmur" placeholder="Umur">
+                            <label for="editUmur">Umur</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editJantina" placeholder="Jantina">
+                            <label for="editJantina">Jantina</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editJawatan" placeholder="Jawatan">
+                            <label for="editJawatan">Jawatan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editGred" placeholder="Gred">
+                            <label for="editGred">Gred</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editPenyandang" placeholder="Penyandang">
+                            <label for="editPenyandang">Penyandang</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editkumpJawatan" placeholder="Kumpulan Jawatan">
+                            <label for="editkumpJawatan">Kumpulan Jawatan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editstatusJawatan" placeholder="Status Jawatan">
+                            <label for="editstatusJawatan">Status Jawatan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editUnit" placeholder="Unit">
+                            <label for="editUnit">Unit</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editJabatan" placeholder="Jabatan">
+                            <label for="editJabatan">Jabatan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editPtj" placeholder="PTJ">
+                            <label for="editPtj">PTJ</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editEmel" placeholder="Emel">
+                            <label for="editEmel">Emel</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhKhidmatUM" placeholder="Tarikh Khidmat UM">
+                            <label for="edittarikhKhidmatUM">Tarikh Khidmat UM</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhKhidmatJPA" placeholder="Tarikh Khidmat JPA">
+                            <label for="edittarikhKhidmatJPA">Tarikh Khidmat JPA</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhSahJawatan" placeholder="Tarikh Sah Jawatan">
+                            <label for="edittarikhSahJawatan">Tarikh Sah Jawatan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhNaikPangkat" placeholder="Tarikh Naik Pangkat">
+                            <label for="edittarikhNaikPangkat">Tarikh Naik Pangkat</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhLantikSemasa" placeholder="Tarikh Lantik Semasa">
+                            <label for="edittarikhLantikSemasa">Tarikh Lantik Semasa</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhAkhirKhidmat" placeholder="Tarikh Akhir Khidmat">
+                            <label for="edittarikhAkhirKhidmat">Tarikh Akhir Khidmat</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="edittarikhBersara" placeholder="Tarikh Bersara">
+                            <label for="edittarikhBersara">Tarikh Bersara</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editUmurBersara" placeholder="Umur Bersara">
+                            <label for="editUmurBersara">Umur Bersara</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editbakiTempohPerkhidmatan" placeholder="Baki Tempoh Perkhidmatan">
+                            <label for="editbakiTempohPerkhidmatan">Baki Tempoh Perkhidmatan</label>
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <textarea class="form-control mb-2" id="editkelayakanAkademik" placeholder="Kelayakan Akademik"></textarea>
+                            <!-- <input type="text" class="form-control mb-2 " id="editkelayakanAkademik" placeholder="Kelayakan Akademik"> -->
+                            <label for="editkelayakanAkademik">Kelayakan Akademik</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editlta" placeholder="LTA">
+                            <label for="editlta">LTA</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editcapacityBand" placeholder="Capacity Band">
+                            <label for="editcapacityBand">Capacity Band</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editwork" placeholder="Work">
+                            <label for="editwork">Work</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editideation" placeholder="Ideation">
+                            <label for="editideation">Ideation</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editthinking" placeholder="Thinking">
+                            <label for="editthinking">Thinking</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editmotivation" placeholder="Motivation">
+                            <label for="editmotivation">Motivation</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control mb-2" id="editlearning" placeholder="Learning">
+                            <label for="editlearning">Learning</label>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="updateStaffBtn">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Staff Modal -->
+        <div class="modal fade" id="viewStaffModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">View Staff Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>No. Staf:</strong> <span id="viewNoStaf"></span></p>
+                        <p><strong>Gelaran:</strong> <span id="viewGelaran"></span></p>
+                        <p><strong>Nama:</strong> <span id="viewNama"></span></p>
+                        <p><strong>No. Kad Pengenalan:</strong> <span id="viewKadPengenalan"></span></p>
+                        <p><strong>Tahun Lahir:</strong> <span id="viewtahunLahir"></span></p>
+                        <p><strong>Tahun Semasa:</strong> <span id="viewtahunSemasa"></span></p>
+                        <p><strong>Umur:</strong> <span id="viewUmur"></span></p>
+                        <p><strong>Jantina:</strong> <span id="viewJantina"></span></p>
+                        <p><strong>Jawatan:</strong> <span id="viewJawatan"></span></p>
+                        <p><strong>Gred:</strong> <span id="viewGred"></span></p>
+                        <p><strong>Penyandang:</strong> <span id="viewPenyandang"></span></p>
+                        <p><strong>Kumpulan Jawatan:</strong> <span id="viewkumpJawatan"></span></p>
+                        <p><strong>Status Jawatan:</strong> <span id="viewstatusJawatan"></span></p>
+                        <p><strong>Unit:</strong> <span id="viewUnit"></span></p>
+                        <p><strong>Jabatan:</strong> <span id="viewJabatan"></span></p>
+                        <p><strong>PTJ:</strong> <span id="viewPtj"></span></p>
+                        <p><strong>Emel:</strong> <span id="viewEmel"></span></p>
+                        <p><strong>Tarikh Khidmat UM:</strong> <span id="viewtarikhKhidmatUM"></span></p>
+                        <p><strong>Tarikh Khidmat JPA:</strong> <span id="viewtarikhKhidmatJPA"></span></p>
+                        <p><strong>Tarikh Sah Jawatan:</strong> <span id="viewtarikhSahJawatan"></span></p>
+                        <p><strong>Tarikh Naik Pangkat:</strong> <span id="viewtarikhNaikPangkat"></span></p>
+                        <p><strong>Tarikh Lantik Semasa:</strong> <span id="viewtarikhLantikSemasa"></span></p>
+                        <p><strong>Tarikh Akhir Khidmat:</strong> <span id="viewtarikhAkhirKhidmat"></span></p>
+                        <p><strong>Tarikh Bersara:</strong> <span id="viewtarikhBersara"></span></p>
+                        <p><strong>Umur Bersara:</strong> <span id="viewUmurBersara"></span></p>
+                        <p><strong>Baki Tempoh Perkhidmatan:</strong> <span id="viewbakiTempohPerkhidmatan"></span></p>
+                        <p><strong>Kelayakan Akademik:</strong> <span id="viewkelayakanAkademik"></span></p>
+                        <p><strong>LTA:</strong> <span id="viewlta"></span></p>
+                        <p><strong>Capacity Band:</strong> <span id="viewcapacityBand"></span></p>
+                        <p><strong>Work:</strong> <span id="viewwork"></span></p>
+                        <p><strong>Ideation:</strong> <span id="viewideation"></span></p>
+                        <p><strong>Thinking:</strong> <span id="viewthinking"></span></p>
+                        <p><strong>Motivation:</strong> <span id="viewmotivation"></span></p>
+                        <p><strong>Learning:</strong> <span id="viewlearning"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">Eposoft Enterprise. 2024</span>
+        </div>
+    </footer>
+</body>
+</html>

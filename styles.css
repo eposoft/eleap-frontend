@@ -1,0 +1,162 @@
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.footer {
+    margin-top: auto;
+    padding: 1rem 0;
+}
+
+
+.search-results {
+    margin-top: 20px;
+}
+
+.product-card {
+    margin-bottom: 20px;
+}
+
+
+
+
+/*---------------------------------------------------Table Style--------------------------------------------------------------*/
+
+table.table-bordered {
+    border: 2px solid #000; /* Black border around the table */
+}
+
+table.table-bordered th,
+table.table-bordered td {
+    border: 1px solid #000; /* Black border for cells */
+}
+
+
+th {
+    background-color: #04AA6D !important;
+    color: white !important;
+}
+
+/* Ensure table cells have consistent padding and borders */
+th, td {
+    min-width: 120px;
+    white-space: nowrap;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+  }
+
+
+.table-condensed {
+    font-size: 13px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.table-scrollable {
+    max-height: 500px; /* Adjust the height as needed */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent text from wrapping */
+    position: relative; /* Important for sticky positioning */
+    display: block;
+}
+
+
+/* Sticky Header Styles */
+.sticky-header th{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 50; /*Default z-index for sticky headers */
+    background-color: #04AA6D; /* Header background color */
+    color: white; /* Header text color */
+    transition: z-index 0.3s; /* Smooth transition for z-index changes */
+}
+
+
+.fixed-column {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background-color: #ffffff; /* Background color for fixed columns */
+    border-right: 1px solid #ddd; /* Optional border for better separation */
+}
+
+/* Adjust the left values and widths for each fixed column */
+.fixed-column:nth-child(1),
+.sticky-header th:nth-child(1) {
+    left: 0;
+    width: 50px; /* Adjust width for the row number column */
+}
+
+.fixed-column:nth-child(2),
+.sticky-header th:nth-child(2) {
+    left: 100px;
+    width: 100px; /* Adjust width for the "No. Staf" column */
+}
+
+.fixed-column:nth-child(3),
+.sticky-header th:nth-child(3) {
+    left: 200px;
+    width: 200px; /* Adjust width for the "Gelaran" column */
+}
+
+
+
+
+
+/*---------------------------------------------Pagination CSS--------------------------------------------------------------------------- */
+#paginationControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#paginationControls button {
+    margin: 0 10px;
+}
+
+@media (max-width: 1000px) {
+    #paginationControls {
+        flex-direction: column;
+    }
+
+    #paginationControls button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Accordion-style cards for mobile view */
+    .accordion-button {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    .accordion-body {
+        background-color: #f8f9fa;
+    }
+
+    .accordion-item {
+        border: 1px solid #000;
+        margin-bottom: 10px;
+    }
+
+    .accordion-button:not(.collapsed) {
+        color: #fff;
+        background-color: #028c5e;
+    }
+}
+
