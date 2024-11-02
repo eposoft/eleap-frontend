@@ -14,10 +14,10 @@ function searchStaffs(page = 1) {
   currentPage = page;
   const query = document.getElementById("searchQuery").value;
   const url = query
-    ? `http://localhost:3000/api/staff/search/single?query=${encodeURIComponent(
+    ? `https://eleap-backend.onrender.com/api/staff/search/single?query=${encodeURIComponent(
         query
       )}&page=${page}&limit=${itemsPerPage}`
-    : `http://localhost:3000/api/staff/search/all?page=${page}&limit=${itemsPerPage}`;
+    : `https://eleap-backend.onrender.com/api/staff/search/all?page=${page}&limit=${itemsPerPage}`;
 
       fetch(url, {
         method: 'GET',
@@ -232,7 +232,7 @@ new bootstrap.Modal(document.getElementById("editStaffModal")).show();
 // Delete Staff
 window.deleteStaff = function (staffId) {
   if (confirm("Are you sure you want to delete this staff?")) {
-    fetch(`http://localhost:3000/api/staff/delete/${staffId}`, {
+    fetch(`https://eleap-backend.onrender.com/api/staff/delete/${staffId}`, {
       method: "DELETE",
       headers: {
         'Authorization': `Bearer ${token}`
@@ -252,7 +252,7 @@ window.deleteStaff = function (staffId) {
 
 // View Staff
 window.viewStaff = function (staffId) {
-  fetch(`http://localhost:3000/api/staff/${staffId}`)
+  fetch(`https://eleap-backend.onrender.com/api/staff/${staffId}`)
     .then((res) => {
       if (!res.ok) throw new Error(`Error: ${res.statusText}`);
       return res.json();
@@ -579,7 +579,7 @@ function addNewStaff() {
     learning: document.getElementById("newlearning").value,
   };
 
-  fetch("http://localhost:3000/api/staff/add", {
+  fetch("https://eleap-backend.onrender.com/api/staff/add", {
     method: "POST",
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -644,7 +644,7 @@ function updateStaffDetails() {
     learning: document.getElementById("editlearning").value,
   };
 
-  fetch(`http://localhost:3000/api/staff/update/${editStaff._id}`, {
+  fetch(`https://eleap-backend.onrender.com/api/staff/update/${editStaff._id}`, {
     method: "PUT",
     headers: {
       'Authorization': `Bearer ${token}`,
